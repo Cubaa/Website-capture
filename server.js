@@ -1,7 +1,8 @@
 import express from "express";
 import fetch from "node-fetch";
 import path, { join } from "path";
-var __dirname = path.resolve();
+import cors from "cors";
+const __dirname = path.resolve();
 import ejs from "ejs";
 const app = express();
 const port = process.env.PORT || 8080;
@@ -13,6 +14,7 @@ const server = app.listen(port, () => {
 app.set("views", join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+app.use(cors());
 app.use(express.static(join(__dirname, "/public")));
 
 app.get("/", function (req, res, next) {
