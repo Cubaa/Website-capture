@@ -13,7 +13,7 @@ const server = app.listen(port, () => {
 app.set("views", join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-app.use(express.static(join(__dirname)));
+app.use(express.static(join(__dirname, "/public")));
 
 app.get("/", function (req, res, next) {
   console.log("Hej");
