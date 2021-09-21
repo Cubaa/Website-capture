@@ -6,17 +6,17 @@ class App {
     this.submitBtn = document.querySelector(".button-action button");
     this.input = document.querySelector(".input-action input");
     this.list = document.querySelector(".website-list ul");
-    this.targetWWebsite = "";
+    this.targetWebsite = "";
     this.websiteName = "";
     this.submitBtn.addEventListener("click", (e) => this.addWebsite(e));
   }
 
   addWebsite(e) {
-    console.log(e);
     e.preventDefault();
-
-    this.targetWebsite = input.value;
-    if (this.targetWWebsite === "") return;
+    console.log(e);
+    this.targetWebsite = this.input.value;
+    console.log(this.targetWebsite);
+    if (this.targetWebsite === "") return;
     this.list.innerHTML = "";
 
     this.websites.push(this.targetWebsite);
@@ -51,3 +51,5 @@ class App {
     }
   }
 }
+
+const app = new App();
