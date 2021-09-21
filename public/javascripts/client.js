@@ -9,10 +9,11 @@ const websites = [];
 async function goSite(e) {
   try {
     const targetWebsite = e.target.parentElement.dataset.website;
-    console.log(`http://localhost:8080/${targetWebsite}`);
-    const res = await fetch(`http://localhost:8080/${targetWebsite}`);
+    const res = await fetch(
+      `https://recruitment-task-website.herokuapp.com/${targetWebsite}`
+    );
 
-    window.location.href = `http://localhost:8080/${targetWebsite}`;
+    window.location.href = `https://recruitment-task-website.herokuapp.com/${targetWebsite}`;
   } catch (err) {
     console.log(err);
   }
