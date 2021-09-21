@@ -1,5 +1,3 @@
-console.log("HELLO");
-
 class App {
   constructor() {
     this.websites = [];
@@ -8,19 +6,12 @@ class App {
     this.list = document.querySelector(".website-list ul");
     this.targetWebsite = "";
     this.websiteName = "";
+    this.localStorage = window.localStorage;
     this.submitBtn.addEventListener("click", (e) => this.addWebsite(e));
+    this.loadDataFromLocalStorage();
   }
 
-  addWebsite(e) {
-    e.preventDefault();
-    console.log(e);
-    this.targetWebsite = this.input.value;
-    console.log(this.targetWebsite);
-    if (this.targetWebsite === "") return;
-    this.list.innerHTML = "";
-
-    this.websites.push(this.targetWebsite);
-
+  renderWebsitesList() {
     this.websites.map((website) => {
       const li = document.createElement("li");
       li.setAttribute("data-website", website);
@@ -34,7 +25,19 @@ class App {
       li.appendChild(button);
       this.list.appendChild(li);
     });
+  }
+  addWebsite(e) {
+    e.preventDefault();
+    console.log(e);
+    this.targetWebsite = this.input.value;
+    console.log(this.targetWebsite);
+    if (this.targetWebsite === "") return;
+    this.list.innerHTML = "";
 
+    this.websites.push(this.targetWebsite);
+    this.renderWebsitesList();
+
+    this.localStorage.setItem("websiteNames", JSON.stringify(this.websites));
     this.input.value = "";
   }
 
@@ -49,6 +52,11 @@ class App {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  loadDataFromLocalStorage() {
+    this.websites = JSON.parse(this.localStorage.getItem("websiteNames"));
+    this.renderWebsitesList();
   }
 }
 
