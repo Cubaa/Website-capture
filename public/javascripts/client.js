@@ -28,9 +28,9 @@ class App {
   }
   addWebsite(e) {
     e.preventDefault();
-    console.log(e);
+
     this.targetWebsite = this.input.value;
-    console.log(this.targetWebsite);
+
     if (this.targetWebsite === "") return;
     this.list.innerHTML = "";
 
@@ -55,7 +55,9 @@ class App {
   }
 
   loadDataFromLocalStorage() {
-    this.websites = JSON.parse(this.localStorage.getItem("websiteNames"));
+    let data = JSON.parse(this.localStorage.getItem("websiteNames"));
+    if (data === null) this.websites = [];
+    else this.websites = data;
     this.renderWebsitesList();
   }
 }
