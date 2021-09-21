@@ -1,49 +1,53 @@
 console.log("HELLO");
 
-const submitBtn = document.querySelector(".button-action button");
-const input = document.querySelector(".input-action input");
-const ul = document.querySelector(".website-list ul");
+class App {
+  constructor() {
+    this.websites = [];
+    this.submitBtn = document.querySelector(".button-action button");
+    this.input = document.querySelector(".input-action input");
+    this.list = document.querySelector(".website-list ul");
+    this.targetWWebsite = "";
+    this.websiteName = "";
+    this.submitBtn.addEventListener("click", (e) => this.addWebsite(e));
+  }
 
-const websites = [];
+  addWebsite(e) {
+    console.log(e);
+    e.preventDefault();
 
-async function goSite(e) {
-  try {
-    const targetWebsite = e.target.parentElement.dataset.website;
-    const res = await fetch(
-      `https://recruitment-task-website.herokuapp.com/${targetWebsite}`
-    );
+    this.targetWebsite = input.value;
+    if (this.targetWWebsite === "") return;
+    this.list.innerHTML = "";
 
-    window.location.href = `https://recruitment-task-website.herokuapp.com/${targetWebsite}`;
-  } catch (err) {
-    console.log(err);
+    this.websites.push(this.targetWebsite);
+
+    this.websites.map((website) => {
+      const li = document.createElement("li");
+      li.setAttribute("data-website", website);
+      li.classList.add("list-item");
+      const a = document.createElement("a");
+      const button = document.createElement("button");
+      button.innerText = "Go site";
+      button.onclick = this.goSite;
+      a.innerText = website;
+      li.appendChild(a);
+      li.appendChild(button);
+      this.list.appendChild(li);
+    });
+
+    this.input.value = "";
+  }
+
+  async goSite(e) {
+    try {
+      this.websiteName = e.target.parentElement.dataset.website;
+      const res = await fetch(
+        `https://recruitment-task-website.herokuapp.com/${this.websiteName}`
+      );
+
+      window.location.href = `https://recruitment-task-website.herokuapp.com/${this.websiteName}`;
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
-
-const addWebsite = (e) => {
-  e.preventDefault();
-
-  const targetWebsite = input.value;
-  if (targetWebsite === "") return;
-  ul.innerHTML = "";
-  console.log(targetWebsite);
-  websites.push(targetWebsite);
-  console.log("klik - add website");
-
-  websites.map((website) => {
-    const li = document.createElement("li");
-    li.setAttribute("data-website", website);
-    li.classList.add("list-item");
-    const a = document.createElement("a");
-    const button = document.createElement("button");
-    button.innerText = "Go site";
-    button.onclick = goSite;
-    a.innerText = website;
-    li.appendChild(a);
-    li.appendChild(button);
-    ul.appendChild(li);
-  });
-
-  input.value = "";
-};
-
-submitBtn.addEventListener("click", (e) => addWebsite(e));
