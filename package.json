@@ -5,19 +5,17 @@
   "main": "client.js",
   "type": "module",
   "dependencies": {
-    "axios": "^0.21.4",
-    "cheerio": "^1.0.0-rc.10",
     "cors": "^2.8.5",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "node-fetch": "^3.0.0",
-    "puppeteer": "^10.2.0",
-    "website-scraper": "^4.2.3"
+    "node-sass": "^6.0.1"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "build-css": "node-sass --include-path scss public/scss/style.scss   public/stylesheets/style.css"
   },
   "author": "",
   "license": "ISC"

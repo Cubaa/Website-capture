@@ -1,9 +1,9 @@
 class App {
   constructor() {
-    this.websites = [];
+    App.websites = [];
     this.submitBtn = document.querySelector(".button-action button");
     this.input = document.querySelector(".input-action input");
-    this.list = document.querySelector(".website-list ul");
+    this.list = document.querySelector(".websites-list ul");
     this.targetWebsite = "";
     this.websiteName = "";
     this.localStorage = window.localStorage;
@@ -12,7 +12,14 @@ class App {
   }
 
   renderWebsitesList() {
-    this.websites.map((website) => {
+    if (this.localStorage.length !== 0 || App.websites.length !== 0) {
+      const removeAllbtn = document.createElement("button");
+      removeAllbtn.innerText = "Remove all elements";
+      removeAllbtn.classList.add("removeAllBtn");
+      removeAllbtn.onclick = this.removeAllElements.bind(this.list);
+      this.list.appendChild(removeAllbtn);
+    }
+    App.websites.map((website) => {
       const li = document.createElement("li");
       li.setAttribute("data-website", website);
       li.classList.add("list-item");
@@ -34,31 +41,37 @@ class App {
     if (this.targetWebsite === "") return;
     this.list.innerHTML = "";
 
-    this.websites.push(this.targetWebsite);
+    App.websites.push(this.targetWebsite);
     this.renderWebsitesList();
 
-    this.localStorage.setItem("websiteNames", JSON.stringify(this.websites));
+    this.localStorage.setItem("websiteNames", JSON.stringify(App.websites));
     this.input.value = "";
   }
 
   async goSite(e) {
     try {
       this.websiteName = e.target.parentElement.dataset.website;
-      const res = await fetch(
-        `https://recruitment-task-website.herokuapp.com/${this.websiteName}`
-      );
+      const res = await fetch(`http://localhost:8080/${this.websiteName}`);
 
-      window.location.href = `https://recruitment-task-website.herokuapp.com/${this.websiteName}`;
+      window.location.href = `http://localhost:8080/${this.websiteName}`;
     } catch (err) {
       console.log(err);
     }
   }
 
   loadDataFromLocalStorage() {
-    let data = JSON.parse(this.localStorage.getItem("websiteNames"));
-    if (data === null) this.websites = [];
-    else this.websites = data;
-    this.renderWebsitesList();
+    if (this.localStorage["websiteNames"]) {
+      let data = JSON.parse(this.localStorage.getItem("websiteNames"));
+      if (data === null) App.websites = [];
+      else App.websites = data;
+      this.renderWebsitesList();
+    }
+  }
+
+  removeAllElements() {
+    this.innerHTML = "";
+    App.websites.length = 0;
+    window.localStorage.setItem("websiteNames", []);
   }
 }
 

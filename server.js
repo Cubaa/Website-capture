@@ -8,7 +8,7 @@ const app = express();
 const port = process.env.PORT || 8080;
 
 const server = app.listen(port, () => {
-  console.log("servers is running");
+  console.log("server is running");
 });
 
 app.set("views", join(__dirname, "views"));
@@ -18,15 +18,13 @@ app.use(cors());
 app.use(express.static(join(__dirname, "/public")));
 
 app.get("/", function (req, res, next) {
-  console.log("Hej");
-  res.render("index", { title: "App" });
+  res.render("index", { title: "Website capture" });
 });
 
 app.get(`/:website`, async (req, res) => {
   try {
     const response = await fetch(`https://www.${req.params.website}.com/`);
     const data = await response.text();
-    console.log(data);
     res.render("website", { data: data });
   } catch (error) {
     if (error) console.log(error);
