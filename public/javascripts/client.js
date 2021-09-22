@@ -38,7 +38,10 @@ class App {
 
     this.targetWebsite = this.input.value;
 
-    if (this.targetWebsite === "") return;
+    if (this.targetWebsite === "") {
+      this.input.style.border = "1px solid #FF0000";
+      return;
+    } else this.input.style.border = "1px solid #000";
     this.list.innerHTML = "";
 
     App.websites.push(this.targetWebsite);

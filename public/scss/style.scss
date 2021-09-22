@@ -29,10 +29,12 @@ body {
           display: flex;
           justify-content: center;
           align-items: center;
+          width: 300px;
           input {
             padding: 0.5rem 0.5rem;
             outline: none;
             border: 1px solid #000;
+            width: 100%;
           }
         }
         .button-action {

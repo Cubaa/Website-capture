@@ -24,8 +24,8 @@ app.get("/", function (req, res, next) {
 app.get(`/:website`, async (req, res) => {
   try {
     const response = await fetch(`https://www.${req.params.website}.com/`);
-    const data = await response.text();
-    res.render("website", { data: data });
+    const body = await response.text();
+    res.render("website", { body });
   } catch (error) {
     if (error) console.log(error);
   }
