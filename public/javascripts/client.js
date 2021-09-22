@@ -51,9 +51,11 @@ class App {
   async goSite(e) {
     try {
       this.websiteName = e.target.parentElement.dataset.website;
-      const res = await fetch(`http://localhost:8080/${this.websiteName}`);
+      const res = await fetch(
+        `https://recruitment-task-website.herokuapp.com/${this.websiteName}`
+      );
 
-      window.location.href = `http://localhost:8080/${this.websiteName}`;
+      window.location.href = `https://recruitment-task-website.herokuapp.com/${this.websiteName}`;
     } catch (err) {
       console.log(err);
     }
