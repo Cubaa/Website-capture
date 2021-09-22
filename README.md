@@ -1,6 +1,6 @@
 # TECHNOLOGIES
-JavaScript__
-Node.js__
-Express.js__
-Sass (SCSS)__
-EJS__
+JavaScript_
+Node.js_
+Express.js_
+Sass (SCSS)_
+EJS_
